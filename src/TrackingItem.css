@@ -1,0 +1,17 @@
+.tracked-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.tracked-item.highlighted {
+    background: #2d3143;
+}
+
+.tracked-item * {
+    flex: 1;
+}
+
+.tracked-item button {
+    padding: 0;
+    margin: 1px 0 1px 0;
+}
