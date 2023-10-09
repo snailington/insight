@@ -1,5 +1,6 @@
 import {TokenInfo} from "./backend/TokenInfo.ts";
 import {INSIGHT_KEY, rollInitiative} from "./backend/Insight.ts";
+import { Item } from "@owlbear-rodeo/sdk";
 
 export class TrackingReference {
     name: string;
