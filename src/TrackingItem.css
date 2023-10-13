@@ -11,7 +11,16 @@
     flex: 1;
 }
 
+.tracked-item .name {
+    flex: 5;
+}
+
+.tracked-item .initiative {
+    text-align: right;
+    margin-right: 4px;
+}
+
 .tracked-item button {
     padding: 0;
-    margin: 1px 0 1px 0;
+    margin: 1px 4px 1px 0;
 }
