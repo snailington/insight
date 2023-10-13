@@ -89,10 +89,26 @@ export async function registerTool() {
         const dupes = trackedItems.filter((item) => trackedItems.find((other) => item.name == other.name &&
             (item.metadata[INSIGHT_KEY] as TokenInfo).id != item.id));
         if(dupes.length == 0) return;
+
+        const insight = await Insight.getState();
+
         await OBR.scene.items.updateItems(dupes, (updates) => {
             let index = 10;
+
+            console.log("update", updates);
+
+            let bottomInitiative = 1 - trackedItems.length * 0.0001;
             for(const item of updates) {
-               index = dedupName(item, trackedItems, index);
+                const info = item.metadata[INSIGHT_KEY] as TokenInfo;
+                index = dedupName(item, trackedItems, index);
+
+                if(insight.turn > 0) {
+                    info.initiative = bottomInitiative;
+                    bottomInitiative -= 0.0001;
+                } else if(insight.turn == 0 && info.initiative != 0) {
+                    info.initiative = 0;
+                }
+
             } 
         });
     });
