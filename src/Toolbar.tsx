@@ -5,7 +5,8 @@ import "./Toolbar.css";
 function Toolbar({insight, isGm}: {insight: Insight, isGm: boolean}) {
     return (
         <div className="toolbar">
-            {isGm || insight.currentPlayer == OBR.player.id ? <button onClick={advanceTurn}>Next Turn</button> : ""}
+            {isGm || insight.currentPlayer == OBR.player.id ?
+                <button onClick={advanceTurn}>{insight.turn == 0 ? "Start" : "Next Turn"}</button> : <></>}
             {isGm ? <button onClick={() => resetInsight()}>Clear</button> : ""}
         </div>
     )
