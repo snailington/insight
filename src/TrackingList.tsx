@@ -4,6 +4,7 @@ import OBR, { Item } from '@owlbear-rodeo/sdk';
 import TrackingItem from './TrackingItem.tsx';
 import {TrackingReference} from "./TrackingReference.ts";
 import {Insight, isTracked, Update} from "./backend/Insight.ts";
+import "./TrackingList.css";
 
 function TrackingList({isGm, insight}: {isGm: boolean, insight: Insight}) {
     const [tokens, setTokens] = useState(() => new Array<TrackingReference>());
