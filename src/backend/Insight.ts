@@ -34,6 +34,7 @@ function initiativeSearch(insight: Insight, tokens: Item[]) {
     
     if(found >= 0) {
         insight.currentId = tokens[found].id;
+        insight.nextId = tokens[(found+1) % tokens.length].id;
         insight.currentCount = nextCount;
         insight.currentPlayer = tokens[found].createdUserId;
         console.log(insight, tokens[found]);
@@ -116,6 +117,7 @@ export class Insight {
     turn: number = 0;
     currentCount: number = 20000;
     currentId: string = "";
+    nextId: string = "";
     currentPlayer: string = "";
     
     static async getState() {
