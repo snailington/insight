@@ -21,29 +21,22 @@ export async function getOwner(item: Item | string) {
 function initiativeSearch(insight: Insight, tokens: Item[]) {
     if(tokens.length == 0) return -1;
     
-    let index = 0, found = -1;
-    const lastCount = insight.currentCount;
-    let nextCount = -10000;
-    for(; index < tokens.length; index++) {
-        const info = tokens[index].metadata[INSIGHT_KEY] as TokenInfo;
-        if(info.initiative < lastCount && info.initiative > nextCount) {
-            found = index;
-            nextCount = info.initiative;
-        }
+    const mapped = tokens.map((t) => { return {item: t, info: t.metadata[INSIGHT_KEY] as TokenInfo}; })
+        .sort((a, b) => { return b.info.initiative - a.info.initiative; });
+    let index = 0;
+    for(; index < mapped.length; index++) {
+        if(mapped[index].info.initiative < insight.currentCount) break;
     }
-    
-    if(found >= 0) {
-        insight.currentId = tokens[found].id;
-        insight.nextId = tokens[(found+1) % tokens.length].id;
-        insight.currentCount = nextCount;
-        insight.currentPlayer = tokens[found].createdUserId;
-        console.log(insight, tokens[found]);
-        return found;
-    } else {
+    if(index == mapped.length) {
+        index = 0;
         insight.turn++;
-        insight.currentCount = 20000;
-        return initiativeSearch(insight, tokens);
     }
+
+    const {item, info} = mapped[index];
+    insight.currentId = info.id;
+    insight.currentPlayer = info.player ?? item.createdUserId;
+    insight.currentCount = info.initiative;
+    insight.nextId = mapped[(index + 1) % mapped.length].info.id;
 }
 
 export async function advanceTurn() {
