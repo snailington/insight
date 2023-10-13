@@ -11,6 +11,17 @@
     flex: 1;
 }
 
+.tracked-item *:first-child:before {
+    padding-right: 3ex;
+    content: " ";
+}
+
+.tracked-item.highlighted *:first-child:before {
+    padding-left: 0.5ex;
+    padding-right: 0.75ex;
+    content: "\2B9E";
+}
+
 .tracked-item .name {
     flex: 5;
 }
