@@ -104,6 +104,12 @@ export async function resetInsight() {
     const update: Metadata = {};
     update[INSIGHT_KEY] = new Insight();
     await OBR.scene.setMetadata(update);
+
+    await OBR.scene.items.updateItems(isTracked, (tokens) => {
+        for(const token of tokens) {
+            delete token.metadata[INSIGHT_KEY];
+        }
+    });
 }
 
 export class Insight {
