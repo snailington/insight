@@ -26,8 +26,8 @@ function App() {
   
   return (
     <OwlbearTheme className="app-container">
-      <Toolbar isGm={isGm} insight={insight}/>
-      <StatusLine insight={insight} />
+      <Toolbar insight={insight} isGm={isGm} />
+      <StatusLine insight={insight} isGm={isGm} />
       <TrackingList insight={insight} isGm={isGm} />
     </OwlbearTheme>
   )
