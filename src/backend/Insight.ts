@@ -8,6 +8,14 @@ export function isTracked(item: Item) {
     return item.metadata[INSIGHT_KEY] != undefined;
 }
 
+/*
+** Returns the ID of the player that owns a token.
+*/
+export function getOwner(item: Item) {
+    const info = item.metadata[INSIGHT_KEY] as TokenInfo | undefined;
+    return info?.player ?? item.createdUserId;
+}
+
 function initiativeSearch(insight: Insight, tokens: Item[]) {
     if(tokens.length == 0) return -1;
     
