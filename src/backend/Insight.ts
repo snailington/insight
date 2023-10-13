@@ -11,9 +11,11 @@ export function isTracked(item: Item) {
 /*
 ** Returns the ID of the player that owns a token.
 */
-export function getOwner(item: Item) {
-    const info = item.metadata[INSIGHT_KEY] as TokenInfo | undefined;
-    return info?.player ?? item.createdUserId;
+export async function getOwner(item: Item | string) {
+    const resolved = typeof(item) == "string" ? (await OBR.scene.items.getItems([item]))[0] : item;
+
+    const info = resolved.metadata[INSIGHT_KEY] as TokenInfo | undefined;
+    return info?.player ?? resolved.createdUserId;
 }
 
 function initiativeSearch(insight: Insight, tokens: Item[]) {
@@ -34,6 +36,7 @@ function initiativeSearch(insight: Insight, tokens: Item[]) {
         insight.currentId = tokens[found].id;
         insight.currentCount = nextCount;
         insight.currentPlayer = tokens[found].createdUserId;
+        console.log(insight, tokens[found]);
         return found;
     } else {
         insight.turn++;
