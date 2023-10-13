@@ -7,13 +7,17 @@ function TrackingItem({item, isGm, insight}: {item: TrackingReference, isGm: boo
         <div className={ "tracked-item" + (insight.currentId == item.data.id ? " highlighted" : "")}>
             <div className="name">{item.name}</div>
             
-            { !isGm || item.data.initiative > 0 ?
+            { item.data.initiative >= 1 ?
                 <div className="initiative">
                     {item.data.initiative != undefined ? Math.floor(item.data.initiative) : ""}
                 </div> :
-                <button onClick={async () => await item.rollInitiative()}>Roll</button>
+                <></>
             }
-            
+
+            { isGm && item.data.initiative == 0 ?
+                <button onClick={async () => await item.rollInitiative()}>Roll</button> :
+                <></>
+            }
         </div>
     );
 }
