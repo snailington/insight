@@ -5,6 +5,7 @@ import Toolbar from './Toolbar.tsx'
 import { useEffect, useState } from 'react';
 import {INSIGHT_KEY, Insight } from './backend/Insight.ts';
 import OBR from '@owlbear-rodeo/sdk';
+import StatusLine from './StatusLine.tsx';
 
 function App() {
   const [isGm, setIsGm] = useState(false);
@@ -26,7 +27,7 @@ function App() {
   return (
     <OwlbearTheme className="app-container">
       <Toolbar isGm={isGm} insight={insight}/>
-      <div>{insight.turn == 0 ? "" : "Turn: " + insight.turn}</div>
+      <StatusLine insight={insight} />
       <TrackingList insight={insight} isGm={isGm} />
     </OwlbearTheme>
   )
